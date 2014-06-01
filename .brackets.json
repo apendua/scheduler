@@ -1,0 +1,14 @@
+{
+  "jslint.options": {
+    "vars": true,
+    "devel": true,
+    "nomen": true,
+    "predef": [
+      "Meteor",
+      "Router",
+      "Npm",
+      "WebApp",
+      "_"
+    ]
+  }
+}
