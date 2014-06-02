@@ -9,6 +9,13 @@ Template.listOfJobs.helpers({
   }
 });
 
+Template.listOfJobs.events({
+  'click button': function () {
+    "use strict";
+    Jobs.remove({_id: this._id});
+  }
+});
+
 Meteor.startup(function () {
   "use strict";
   console.log('scheduler started');
