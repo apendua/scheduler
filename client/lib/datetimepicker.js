@@ -144,7 +144,7 @@ THE SOFTWARE.
                 }
             }
 
-            picker.widget = $(getTemplate()).appendTo('body');
+            picker.widget = $(getTemplate()).appendTo('#layout');
 
             if (picker.options.useSeconds && !picker.use24hours) {
                 picker.widget.width(300);
@@ -1009,7 +1009,7 @@ THE SOFTWARE.
                             (picker.options.useSeconds ?
                                 '<td class="separator">:</td><td>' + tpGlobal.secondTemplate + '</td>' : '') +
 							(picker.use24hours ? '' : '<td class="separator"></td>' +
-							'<td><button type="button" class="pure-button button-primary" data-action="togglePeriod"></button></td>') +
+							'<td><button type="button" class="pure-button pure-button-primary" data-action="togglePeriod"></button></td>') +
 						'</tr>' +
 						'<tr>' +
 							'<td><a href="#" class="pure-button" data-action="decrementHours"><span class="' + picker.options.icons.down + '"></span></a></td>' +
