@@ -1,0 +1,28 @@
+<template name="listOfJobs">  
+  <div class="header">
+    <h1>Scheduled tasks</h1>
+    <h2>A subtitle for your page goes here</h2>
+  </div>
+  <div class="content">
+    <form class="pure-form add-job-form">
+      <fieldset>
+        <input name="time">
+        <input name="url">
+        <button type="submit" class="pure-button pure-button-primary">Add job</button>
+      </fieldset>
+    </form>
+    <table class="pure-table list-of-jobs">
+      <thead>
+      </thead>
+      <tbody>
+        {{#each jobs}}
+          <tr>
+            <td>{{when}}</td>
+            <td>{{url}}</td>
+            <td><button class="button-xsmall pure-button">remove</button></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>    
+</template>
