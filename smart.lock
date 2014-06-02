@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "iron-router": {},
-      "moment": {}
+      "moment": {},
+      "later": {}
     },
     "packages": {
       "iron-router": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/acreeger/meteor-moment.git",
         "tag": "v2.6.0",
         "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
+      },
+      "later": {
+        "git": "https://github.com/apendua/meteor-later.git",
+        "tag": "v1.6.1",
+        "commit": "a9d41464760ab63f6eae65e97e79fd47cff72e3e"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
