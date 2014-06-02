@@ -1,3 +1,7 @@
+Router.configure({
+  layoutTemplate: 'layoutSideMenu'
+});
+
 Template.listOfJobs.helpers({
   jobs: function () {
     "use strict";
