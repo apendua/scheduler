@@ -1,4 +1,8 @@
 
+Template.listOfJobs.rendered = function () {
+  $(this.find('[name=time]')).datetimepicker();
+};
+
 Template.listOfJobs.helpers({
   jobs: function () {
     "use strict";
