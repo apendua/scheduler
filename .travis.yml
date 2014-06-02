@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "0.8"
+  - "0.10"
+services:
+  - mongodb
+before_install:
+  - curl https://install.meteor.com | /bin/sh
+  - npm install -g meteorite
+before_script:
+  - cd tests && npm install
+  - cd ..
+script:
+  - ./tests/node_modules/.bin/laika -u bdd ./tests/specs

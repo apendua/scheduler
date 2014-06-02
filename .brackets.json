@@ -13,7 +13,10 @@
       "WebApp",
       "HTTP",
       "Template",
-      "_"
+      "_",
+      "require",
+      "describe",
+      "it"
     ]
   }
 }
