@@ -30,17 +30,17 @@ Router.map(function () {
   }
   
   this.route('listOfEvents', {
-    path   : '/events',
+    path   : '/v1/events',
     where  : 'server',
     action : function () {
       end(this.response, 200,
-        _.pluck(Jobs.find({ status: 'Active' }, { fields: { _id: 1 }}).fetch(), '_id')
-      );
+          _.pluck(Jobs.find({ status: 'Active' }, { fields: { _id: 1 }}).fetch(), '_id')
+        );
     }
   });
 
   this.route('eventDetails', {
-    path   : '/events/:id',
+    path   : '/v1/events/:id',
     where  : 'server',
     action : function () {
       var job = null;
@@ -66,18 +66,20 @@ Router.map(function () {
   });
 
   this.route('addEvent', {
-    path   : '/events/when/:date/:url',
+    path   : '/v1/events/when/:date/:url',
     where  : 'server',
     action : function () {
       if (this.request.method !== 'POST') {
         badMethod(this.response);
       } else {
-        var id = Jobs.insert({
+        var job = {
           url    : decodeURIComponent(this.params.url),
           when   : moment(this.params.date).toDate(),
           status : 'Active'
-        });
-        end(this.response, 200, {});
+        };
+        end(this.response, 200, _.extend(job, {
+          _id: Jobs.insert(job)
+        }));
       }
     }
   });
