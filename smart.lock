@@ -4,7 +4,10 @@
     "basePackages": {
       "iron-router": {},
       "moment": {},
-      "later": {}
+      "later": {},
+      "scheduler": {
+        "path": "../meteor-scheduler"
+      }
     },
     "packages": {
       "iron-router": {
@@ -21,6 +24,9 @@
         "git": "https://github.com/apendua/meteor-later.git",
         "tag": "v1.6.1",
         "commit": "a9d41464760ab63f6eae65e97e79fd47cff72e3e"
+      },
+      "scheduler": {
+        "path": "../meteor-scheduler"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

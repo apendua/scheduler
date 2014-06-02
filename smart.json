@@ -2,6 +2,9 @@
   "packages": {
     "iron-router": {},
     "moment": {},
-    "later": {}
+    "later": {},
+    "scheduler": {
+      "path": "../meteor-scheduler"
+    }
   }
 }

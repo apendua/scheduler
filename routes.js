@@ -8,7 +8,7 @@ Router.map(function () {
   });
   
   this.route('listOfJobs', {
-    path  : '/jobs',
+    path  : '/listOfJobs',
     where : 'client'
   });
 

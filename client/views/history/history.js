@@ -4,3 +4,9 @@ Template.history.helpers({
     return Jobs.find({ status: { $ne: 'Active' }}, { sort: { when: -1 }});
   }
 });
+
+Template.history.events({
+  'click button': function () {
+    
+  }
+});

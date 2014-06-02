@@ -7,17 +7,13 @@
   </a>
   <div id="menu">
     <div class="pure-menu pure-menu-open">
-      <a class="pure-menu-heading" href="#">@apendua</a>
+      <a class="pure-menu-heading" href="#"><i class="fa fa-calendar"></i> Tasks</a>
       <ul>
-        <li class="{{onlyIfRouteEquals 'home' 'pure-menu-selected'}}">
-          <a href="/">Home</a>
+        {{#each routes}}
+        <li class="{{onlyIfRouteEquals route 'pure-menu-selected'}}">
+          <a href="{{pathFor route}}">{{name}}</a>
         </li>
-        <li class="{{onlyIfRouteEquals 'listOfJobs' 'pure-menu-selected'}}">
-          <a href="/jobs">Jobs</a>
-        </li>
-        <li class="{{onlyIfRouteEquals 'history' 'pure-menu-selected'}}">
-          <a href="/history">History</a>
-        </li>
+        {{/each}}
       </ul>
     </div>
   </div>
