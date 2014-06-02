@@ -19,8 +19,8 @@ connectHandlers
       console.log(req.headers);
     }
     next();
-  })
-  .use(function (req, res, next) {
+  });
+  /*.use(function (req, res, next) {
     "use strict";
 
     if (req.url === "/events") {
@@ -32,6 +32,8 @@ connectHandlers
       //  return;
       //}
 
+      
+      
       Fiber(function () {
         var jsonData = {};
 
@@ -41,7 +43,8 @@ connectHandlers
         res.end(JSON.stringify(jsonData));
       }).run();
 
-    } else {
-      next();
-    }
-  });
+      } else {
+        next();
+      }
+    });
+    */

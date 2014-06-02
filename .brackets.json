@@ -4,6 +4,8 @@
     "devel": true,
     "nomen": true,
     "predef": [
+      "Jobs",
+      "moment",
       "Meteor",
       "Router",
       "Npm",
