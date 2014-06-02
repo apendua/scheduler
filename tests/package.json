@@ -1,0 +1,10 @@
+{
+  "name": "scheduler",
+  "version": "0.1.0",
+  "devDependencies": {
+    "underscore": "1.*",
+    "chai": "1.*",
+    "laika": "apendua/laika#devel",
+    "es6-promise": "1.*"
+  }
+}
