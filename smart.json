@@ -4,7 +4,7 @@
     "moment": {},
     "later": {},
     "scheduler": {
-      "path": "../meteor-scheduler"
+      "git": "https://github.com/apendua/meteor-scheduler.git"
     }
   }
 }
