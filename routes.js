@@ -44,7 +44,7 @@ Router.map(function () {
       } else {
         var id = Jobs.insert({
           url  : decodeURIComponent(this.params.url),
-          when : moment(this.params.when).toDate()
+          when : moment(this.params.date).toDate()
         });
         end(this.response, 200, {});
       }
