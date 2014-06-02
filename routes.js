@@ -3,8 +3,9 @@ Router.map(function () {
   
   // CLIENT ROUTES
   this.route('home', {
-    path  : '/',
-    where : 'client'
+    path     : '/',
+    where    : 'client',
+    template : 'listOfJobs'
   });
   
   // SERVER ROUTES

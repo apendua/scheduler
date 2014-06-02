@@ -1,3 +1,8 @@
-<template name="home">
+<template name="listOfJobs">
   <h1>scheduled tasks:</h1>
+  <ul>
+    {{#each jobs}}
+      <li>{{when}}, {{url}}</li>
+    {{/each}}
+  </ul>
 </template>

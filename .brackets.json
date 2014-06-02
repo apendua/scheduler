@@ -5,11 +5,14 @@
     "nomen": true,
     "predef": [
       "Jobs",
+      "Cron",
       "moment",
       "Meteor",
       "Router",
       "Npm",
       "WebApp",
+      "HTTP",
+      "Template",
       "_"
     ]
   }
