@@ -77,10 +77,10 @@ THE SOFTWARE.
         },
 
 		icons = {
-		    time: 'glyphicon glyphicon-time',
-		    date: 'glyphicon glyphicon-calendar',
-		    up: 'glyphicon glyphicon-chevron-up',
-		    down: 'glyphicon glyphicon-chevron-down'
+		    time: 'fa fa-clock-o',
+		    date: 'fa fa-calendar',
+		    up: 'fa fa-chevron-up',
+		    down: 'fa fa-chevron-down'
 		},
 
         picker = this,
@@ -753,8 +753,8 @@ THE SOFTWARE.
                     if (expanded && expanded.length) {
                         collapseData = expanded.data('collapse');
                         if (collapseData && collapseData.date - transitioning) return;
-                        expanded.collapse('hide');
-                        closed.collapse('show');
+                        $(expanded).removeClass('in');
+                        $(closed).addClass('in');
                         $this.find('span').toggleClass(picker.options.icons.time + ' ' + picker.options.icons.date);
                         picker.element.find('.input-group-addon span').toggleClass(picker.options.icons.time + ' ' + picker.options.icons.date);
                     }
@@ -912,18 +912,18 @@ THE SOFTWARE.
         getTemplate = function () {
             if (picker.options.pickDate && picker.options.pickTime) {
                 var ret = '';
-                ret = '<div class="bootstrap-datetimepicker-widget' + (picker.options.sideBySide ? ' timepicker-sbs' : '') + ' dropdown-menu" style="z-index:9999 !important;">';
+                ret = '<div class="bootstrap-datetimepicker-widget' + (picker.options.sideBySide ? ' timepicker-sbs' : '') + '" style="z-index:9999 !important;">';
                 if (picker.options.sideBySide) {
-                    ret += '<div class="row">' +
-                       '<div class="col-sm-6 datepicker">' + dpGlobal.template + '</div>' +
-                       '<div class="col-sm-6 timepicker">' + tpGlobal.getTemplate() + '</div>' +
+                    ret += '<div class="pure-g">' +
+                       '<div class="pure-u-sm-1-2 datepicker">' + dpGlobal.template + '</div>' +
+                       '<div class="pure-u-sm-1-2 timepicker">' + tpGlobal.getTemplate() + '</div>' +
                      '</div>';
                 } else {
                     ret += '<ul class="list-unstyled">' +
                         '<li' + (picker.options.collapse ? ' class="collapse in"' : '') + '>' +
                             '<div class="datepicker">' + dpGlobal.template + '</div>' +
                         '</li>' +
-                        '<li class="picker-switch accordion-toggle"><a class="btn" style="width:100%"><span class="' + picker.options.icons.time + '"></span></a></li>' +
+                        '<li class="picker-switch accordion-toggle"><a class="pure-button" style="width:100%"><span class="' + picker.options.icons.time + '"></span></a></li>' +
                         '<li' + (picker.options.collapse ? ' class="collapse"' : '') + '>' +
                             '<div class="timepicker">' + tpGlobal.getTemplate() + '</div>' +
                         '</li>' +
@@ -995,11 +995,11 @@ THE SOFTWARE.
                 '<div class="timepicker-picker">' +
                     '<table class="table-condensed">' +
 						'<tr>' +
-							'<td><a href="#" class="btn" data-action="incrementHours"><span class="' + picker.options.icons.up + '"></span></a></td>' +
+							'<td><a href="#" class="pure-button" data-action="incrementHours"><span class="' + picker.options.icons.up + '"></span></a></td>' +
 							'<td class="separator"></td>' +
-							'<td>' + (picker.options.useMinutes ? '<a href="#" class="btn" data-action="incrementMinutes"><span class="' + picker.options.icons.up + '"></span></a>' : '') + '</td>' +
+							'<td>' + (picker.options.useMinutes ? '<a href="#" class="pure-button" data-action="incrementMinutes"><span class="' + picker.options.icons.up + '"></span></a>' : '') + '</td>' +
                             (picker.options.useSeconds ?
-                                '<td class="separator"></td><td><a href="#" class="btn" data-action="incrementSeconds"><span class="' + picker.options.icons.up + '"></span></a></td>' : '') +
+                                '<td class="separator"></td><td><a href="#" class="pure-button" data-action="incrementSeconds"><span class="' + picker.options.icons.up + '"></span></a></td>' : '') +
 							(picker.use24hours ? '' : '<td class="separator"></td>') +
 						'</tr>' +
 						'<tr>' +
@@ -1009,14 +1009,14 @@ THE SOFTWARE.
                             (picker.options.useSeconds ?
                                 '<td class="separator">:</td><td>' + tpGlobal.secondTemplate + '</td>' : '') +
 							(picker.use24hours ? '' : '<td class="separator"></td>' +
-							'<td><button type="button" class="btn btn-primary" data-action="togglePeriod"></button></td>') +
+							'<td><button type="button" class="pure-button button-primary" data-action="togglePeriod"></button></td>') +
 						'</tr>' +
 						'<tr>' +
-							'<td><a href="#" class="btn" data-action="decrementHours"><span class="' + picker.options.icons.down + '"></span></a></td>' +
+							'<td><a href="#" class="pure-button" data-action="decrementHours"><span class="' + picker.options.icons.down + '"></span></a></td>' +
 							'<td class="separator"></td>' +
-							'<td>' + (picker.options.useMinutes ? '<a href="#" class="btn" data-action="decrementMinutes"><span class="' + picker.options.icons.down + '"></span></a>' : '') + '</td>' +
+							'<td>' + (picker.options.useMinutes ? '<a href="#" class="pure-button" data-action="decrementMinutes"><span class="' + picker.options.icons.down + '"></span></a>' : '') + '</td>' +
                             (picker.options.useSeconds ?
-                                '<td class="separator"></td><td><a href="#" class="btn" data-action="decrementSeconds"><span class="' + picker.options.icons.down + '"></span></a></td>' : '') +
+                                '<td class="separator"></td><td><a href="#" class="pure-button" data-action="decrementSeconds"><span class="' + picker.options.icons.down + '"></span></a></td>' : '') +
 							(picker.use24hours ? '' : '<td class="separator"></td>') +
 						'</tr>' +
                     '</table>' +

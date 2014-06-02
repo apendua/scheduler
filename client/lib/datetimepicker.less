@@ -2,8 +2,8 @@
  * Datetimepicker for Bootstrap v3
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
-@gray-light     : #e0dbdb;
-@gray-lighter   : #f0efef;
+@gray-light     : #d0d0d0;
+@gray-lighter   : #e4e4e4;
 @btn-primary-bg : #67aa3b;
 @font-size-base : 32px;
 
@@ -15,7 +15,28 @@
     margin-top: 1px;
     z-index: 99999 !important;
     border-radius: 4px;
-
+    background-color: @gray-lighter;
+    
+    * {
+      box-sizing: border-box;
+    }
+  
+    .collapse {
+      display: none;
+      &.in {
+        display: block;
+      }
+    }  
+  
+    table {
+      width: 100%;
+    }
+  
+    .list-unstyled {
+      padding: 0;
+      list-style: none;
+    }
+  
     &.timepicker-sbs {
         width: 600px;
     }
@@ -182,7 +203,7 @@
             border-radius: 4px;
 
             &:hover {
-                background: @gray-lighter;
+                /*background: @gray-lighter;*/
             }
 
             &.active {
