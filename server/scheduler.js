@@ -11,15 +11,17 @@ Meteor.startup(function () {
     var limit = moment().add('seconds', INTERVAL).toDate();
     
     Jobs.find({
-      when: { $lt: limit }
+      when   : { $lt: limit },
+      status : 'Active'
     }).forEach(function (job) {
       Meteor.setTimeout(function () {
         job = Jobs.findOne({
-          _id  : job._id,
-          when : job.when
+          _id    : job._id,
+          when   : job.when,
+          status : 'Active'
         });
         if (job) {
-          HTTP.get(job.url, function (err, res) {
+          HTTP.post(job.url, function (err, res) {
             Jobs.update(job._id, { $set: { status: res.statusCode } });
             if (err) {
               // TODO: decrease the retries number

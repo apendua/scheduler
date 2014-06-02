@@ -33,7 +33,9 @@ Router.map(function () {
     path   : '/events',
     where  : 'server',
     action : function () {
-      end(this.response, 200, {});
+      end(this.response, 200,
+        _.pluck(Jobs.find({ status: 'Active' }, { fields: { _id: 1 }}).fetch(), '_id')
+      );
     }
   });
 
@@ -41,7 +43,25 @@ Router.map(function () {
     path   : '/events/:id',
     where  : 'server',
     action : function () {
-      end(this.response, 200, {});
+      var job = null;
+      if (this.request.method === 'POST') {
+        badMethod(this.response);
+      } else {
+        job = Jobs.findOne(this.params.id);
+        if (!job) {
+          end(this.response, 404);
+        } else {
+          if (this.request.method === 'GET') {
+            // TODO: filter attributes
+            end(this.response, 200, job);
+          } else if (this.request.method === 'PUT') {
+            // TODO: finish this one
+            Jobs.update(this.params.id, { $set: {} });
+          } else if (this.request.method === 'DELETE') {
+            Jobs.remove(this.params.id);
+          }
+        }
+      }
     }
   });
 
