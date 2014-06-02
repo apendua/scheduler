@@ -2,7 +2,11 @@
 Template.listOfJobs.helpers({
   jobs: function () {
     "use strict";
-    return Jobs.find();
+    return Jobs.find({
+      status: 'Active'
+    }, { sort: {
+      when: -1
+    }});
   }
 });
 
@@ -12,6 +16,7 @@ Template.listOfJobs.events({
     Jobs.remove({_id: this._id});
   },
   'submit form': function (e, t) {
+    "use strict";
     e.preventDefault();
-  },
+  }
 });

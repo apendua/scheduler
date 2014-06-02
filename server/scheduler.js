@@ -20,11 +20,9 @@ Meteor.startup(function () {
         });
         if (job) {
           HTTP.get(job.url, function (err, res) {
-            if (!err) {
+            Jobs.update(job._id, { $set: { status: res.statusCode } });
+            if (err) {
               // TODO: decrease the retries number
-              Jobs.remove(job._id);
-              console.log(res);
-            } else {
               console.log('JOB FAILDED:', job.url);
             }
           });

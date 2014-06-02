@@ -3,10 +3,20 @@ Router.map(function () {
   
   // CLIENT ROUTES
   this.route('home', {
-    path     : '/',
-    where    : 'client',
-    template : 'listOfJobs'
+    path  : '/',
+    where : 'client'
   });
+  
+  this.route('listOfJobs', {
+    path  : '/jobs',
+    where : 'client'
+  });
+
+  this.route('history', {
+    path  : '/history',
+    where : 'client'
+  });
+
   
   // SERVER ROUTES
   function end(response, code, data) {
@@ -43,8 +53,9 @@ Router.map(function () {
         badMethod(this.response);
       } else {
         var id = Jobs.insert({
-          url  : decodeURIComponent(this.params.url),
-          when : moment(this.params.date).toDate()
+          url    : decodeURIComponent(this.params.url),
+          when   : moment(this.params.date).toDate(),
+          status : 'Active'
         });
         end(this.response, 200, {});
       }

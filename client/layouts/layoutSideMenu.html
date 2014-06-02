@@ -9,12 +9,15 @@
     <div class="pure-menu pure-menu-open">
       <a class="pure-menu-heading" href="#">@apendua</a>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li class="menu-item-divided pure-menu-selected">
-            <a href="#">Jobs</a>
+        <li class="{{onlyIfRouteEquals 'home' 'pure-menu-selected'}}">
+          <a href="/">Home</a>
         </li>
-        <li><a href="#">History</a></li>
+        <li class="{{onlyIfRouteEquals 'listOfJobs' 'pure-menu-selected'}}">
+          <a href="/jobs">Jobs</a>
+        </li>
+        <li class="{{onlyIfRouteEquals 'history' 'pure-menu-selected'}}">
+          <a href="/history">History</a>
+        </li>
       </ul>
     </div>
   </div>

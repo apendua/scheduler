@@ -1,0 +1,26 @@
+<template name="history">
+  <div class="header">
+    <h1>Jobs history</h1>
+    <h2></h2>
+  </div>
+  <div class="content">
+    <table class="pure-table list-of-jobs">
+      <thead>
+        <tr>
+          <th>when</th>
+          <th>url</th>
+          <th>status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each jobs}}
+          <tr>
+            <td>{{when}}</td>
+            <td>{{url}}</td>
+            <td>{{status}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div> 
+</template>
