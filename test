@@ -1,2 +1,2 @@
 #!/bin/bash
-./tests/node_modules/.bin/laika -u bdd ./tests/specs
+./tests/node_modules/.bin/laika -u bdd -t 10000 ./tests/specs

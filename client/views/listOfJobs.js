@@ -9,7 +9,7 @@ Template.listOfJobs.helpers({
     return Jobs.find({
       status: 'Active'
     }, { sort: {
-      when: -1
+      when: 1
     }});
   },
   timeStamp: function () {

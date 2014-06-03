@@ -5,7 +5,8 @@
     "nomen": true,
     "predef": [
       "Jobs",
-      "Cron",
+      "Scheduler",
+      "Server",
       "moment",
       "later",
       "Meteor",

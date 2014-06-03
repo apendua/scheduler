@@ -19,14 +19,24 @@ Router.map(function () {
 
   
   // SERVER ROUTES
-  function end(response, code, data) {
-    response.statusCode = code;
-    response.setHeader("Content-Type", "application/json; character=utf-8");
-    response.end(JSON.stringify(data));
+  function end(self, code, data) {
+    self.response.statusCode = code;
+    self.response.setHeader("Content-Type", "application/json; character=utf-8");
+    self.response.end(JSON.stringify(data));
   }
   
-  function badMethod(response) {
-    end(response, 400, {});
+  function badRequest(self) {
+    end(self.response, 400, {});
+  }
+  
+  function verifyMethod(self, method, callback) {
+    return function () {
+      if (self.request.method === method.toUpperCase()) {
+        callback.apply(self, arguments);
+      } else {
+        badRequest(self);
+      }
+    };
   }
   
   function getNextTick(cron) {
@@ -37,12 +47,28 @@ Router.map(function () {
       return t;
     }
   }
+
+  this.route('test', {
+    path   : '/v1/auth',
+    where  : 'server',
+    action : function () {
+      end(this, 200, []);
+    }
+  });
+  
+  this.route('auth', {
+    path   : '/v1/auth',
+    where  : 'server',
+    action : function () {
+      end(this, 200, []);
+    }
+  });
   
   this.route('listOfEvents', {
     path   : '/v1/events',
     where  : 'server',
     action : function () {
-      end(this.response, 200,
+      end(this, 200,
           _.pluck(Jobs.find({ status: 'Active' }, { fields: { _id: 1 }}).fetch(), '_id')
         );
     }
@@ -54,15 +80,15 @@ Router.map(function () {
     action : function () {
       var job = null;
       if (this.request.method === 'POST') {
-        badMethod(this.response);
+        badRequest(this);
       } else {
         job = Jobs.findOne(this.params.id);
         if (!job) {
-          end(this.response, 404);
+          end(this, 404);
         } else {
           if (this.request.method === 'GET') {
             // TODO: filter attributes
-            end(this.response, 200, job);
+            end(this, 200, job);
           } else if (this.request.method === 'PUT') {
             // TODO: finish this one
             Jobs.update(this.params.id, { $set: {} });
@@ -79,7 +105,7 @@ Router.map(function () {
     where  : 'server',
     action : function () {
       if (this.request.method !== 'POST') {
-        badMethod(this.response);
+        badRequest(this);
       } else {
         var next = getNextTick(this.params.dateOrCron);
         var job = {
@@ -95,9 +121,9 @@ Router.map(function () {
           job.when = moment(this.params.dateOrCron).toDate();
         }
 
-        end(this.response, 200, _.extend(job, {
+        end(this, 200, _.extend(job, {
           id: Jobs.insert(job)
-        }));        
+        }));
         
         if (moment(job.when).diff() < Server.interval) {
           // XXX schedule this particular job
