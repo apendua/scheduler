@@ -24,15 +24,10 @@ describe('Scheduler.', function () {
     
     var timestamp = Date.now();
     
-    done = throttle(done).times(2);
-    
-    promise(client)
+    promise(server)
       .eval(function () {
         Scheduler.addEvent('testJob', moment().add('seconds', 3).toISOString());
       })
-      .always(done);
-    
-    promise(server)
       .once('testJob', function () {
         return Date.now() - timestamp;
       })

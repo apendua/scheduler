@@ -31,16 +31,22 @@ Router.map(function () {
     self.response.end(JSON.stringify(data));
   }
   
+  function requireCredentials(self) {
+    self.response.setHeader('WWW-Authenticate', 'Basic realm="Scheduler"');
+    self.response.statusCode = 401;
+    self.response.end();
+  }
+  
   function badRequest(self) {
     end(self.response, 400, {});
   }
   
-  function verifyMethod(self, method, callback) {
+  function verifyMethod(method, callback) {
     return function () {
-      if (self.request.method === method.toUpperCase()) {
-        callback.apply(self, arguments);
+      if (this.request.method === method.toUpperCase()) {
+        callback.apply(this, arguments);
       } else {
-        badRequest(self);
+        badRequest(this);
       }
     };
   }
@@ -53,9 +59,29 @@ Router.map(function () {
       return t;
     }
   }
+  
+  function authorize(callback) {
+    return function () {
+      var auth = this.request.headers.authorization;
+      var match;
+      if (!auth) {
+        requireCredentials(this);
+      } else {
+        match = /Basic\s+([\w\d]+)/.exec(auth);
+        if (!match) {
+          requireCredentials(this);
+        } else {
+          auth = (new Buffer(match[1], 'base64')).toString().split(':');
+          if (Meteor.users.find({ appKey: auth[0], appSecret: auth[1] }).count() == 0) {
+            end(this, 403, { error: 403, message: 'Access denied.' });
+          }
+        }
+      }
+    };
+  }
 
   this.route('test', {
-    path   : '/v1/auth',
+    path   : '/v1/test',
     where  : 'server',
     action : function () {
       end(this, 200, []);
@@ -65,9 +91,9 @@ Router.map(function () {
   this.route('auth', {
     path   : '/v1/auth',
     where  : 'server',
-    action : function () {
+    action : authorize(function () {
       end(this, 200, []);
-    }
+    })
   });
   
   this.route('listOfEvents', {
@@ -109,37 +135,33 @@ Router.map(function () {
   this.route('addEvent', {
     path   : '/v1/events/when/:dateOrCron/:url',
     where  : 'server',
-    action : function () {
-      if (this.request.method !== 'POST') {
-        badRequest(this);
-      } else {
-        var next = getNextTick(this.params.dateOrCron);
-        var job = {
-          url    : this.params.url,
-          status : 'Active'
-        };
-        if (this.request.body) {
-          job.data = this.request.body;
-        }
-        if (next !== undefined) {
-          // XXX this is probably a valid cron
-          job.cron = this.params.dateOrCron;
-          job.when = next;
-        } else {
-          // XXX not a valid cron, so probably date
-          job.when = moment(this.params.dateOrCron).toDate();
-        }
-
-        end(this, 200, _.extend(job, {
-          id: Jobs.insert(job)
-        }));
-        
-        if (moment(job.when).diff() < Server.interval) {
-          // XXX schedule this particular job
-          Server.tick({ _id: job.id });
-        }
+    action : verifyMethod('POST', function () {
+      var next = getNextTick(this.params.dateOrCron);
+      var job = {
+        url    : this.params.url,
+        status : 'Active'
+      };
+      if (this.request.body) {
+        job.data = this.request.body;
       }
-    }
+      if (next !== undefined) {
+        // XXX this is probably a valid cron
+        job.cron = this.params.dateOrCron;
+        job.when = next;
+      } else {
+        // XXX not a valid cron, so probably date
+        job.when = moment(this.params.dateOrCron).toDate();
+      }
+
+      end(this, 200, _.extend(job, {
+        id: Jobs.insert(job)
+      }));
+
+      if (moment(job.when).diff() < Server.interval) {
+        // XXX schedule this particular job
+        Server.tick({ _id: job.id });
+      }
+    })
   });
   
 });
