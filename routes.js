@@ -3,18 +3,24 @@ Router.map(function () {
   
   // CLIENT ROUTES
   this.route('home', {
-    path  : '/',
-    where : 'client'
+    path   : '/',
+    where  : 'client'
   });
   
   this.route('listOfJobs', {
-    path  : '/listOfJobs',
-    where : 'client'
+    path   : '/listOfJobs',
+    where  : 'client',
+    waitOn : function () {
+      return Meteor.subscribe('activeJobs');
+    }
   });
 
   this.route('history', {
-    path  : '/history',
-    where : 'client'
+    path   : '/history',
+    where  : 'client',
+    waitOn : function () {
+      return Meteor.subscribe('history');
+    }
   });
 
   
