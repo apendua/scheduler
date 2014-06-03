@@ -94,9 +94,15 @@ Router.map(function () {
           // XXX not a valid cron, so probably date
           job.when = moment(this.params.dateOrCron).toDate();
         }
+
         end(this.response, 200, _.extend(job, {
           id: Jobs.insert(job)
-        }));
+        }));        
+        
+        if (moment(job.when).diff() < Server.interval) {
+          // XXX schedule this particular job
+          Server.tick({ _id: job.id });
+        }
       }
     }
   });
