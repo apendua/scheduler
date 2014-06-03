@@ -1,12 +1,13 @@
 var SECOND = 1000;
 
 // TODO: figure out the optimal value
+// TODO: we could set this one with an env variable
 var INTERVAL = 10; // seconds
 
 Meteor.startup(function () {
   "use strict";
   
-  function update() {
+  (function update() {
 
     var limit = moment().add('seconds', INTERVAL).toDate();
     
@@ -22,7 +23,15 @@ Meteor.startup(function () {
         });
         if (job) {
           HTTP.post(job.url, function (err, res) {
-            Jobs.update(job._id, { $set: { status: res.statusCode } });
+            if (job.cron) {
+              Jobs.update(job._id, { $set: {
+                when: later.schedule(later.parse.cron(job.cron)).next()
+              }});
+            } else {
+              Jobs.update(job._id, { $set: {
+                status: res.statusCode
+              }});
+            }
             if (err) {
               // TODO: decrease the retries number
               console.log('JOB FAILDED:', job.url);
@@ -31,9 +40,8 @@ Meteor.startup(function () {
         }
       }, moment(job.when).valueOf() - moment().valueOf());
     });
-
+    
     Meteor.setTimeout(update,  INTERVAL * SECOND);
-  }
-  
-  update();
+  }());
+
 });

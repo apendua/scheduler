@@ -29,6 +29,15 @@ Router.map(function () {
     end(response, 400, {});
   }
   
+  function getNextTick(cron) {
+    //XXX I don't like this
+    var s = later.parse.cron(cron);
+    var t = later.schedule(s).next();
+    if (!isNaN(t.getTime())) {
+      return t;
+    }
+  }
+  
   this.route('listOfEvents', {
     path   : '/v1/events',
     where  : 'server',
@@ -66,19 +75,27 @@ Router.map(function () {
   });
 
   this.route('addEvent', {
-    path   : '/v1/events/when/:date/:url',
+    path   : '/v1/events/when/:dateOrCron/:url',
     where  : 'server',
     action : function () {
       if (this.request.method !== 'POST') {
         badMethod(this.response);
       } else {
+        var next = getNextTick(this.params.dateOrCron);
         var job = {
-          url    : decodeURIComponent(this.params.url),
-          when   : moment(this.params.date).toDate(),
+          url    : this.params.url,
           status : 'Active'
         };
+        if (next !== undefined) {
+          // XXX this is probably a valid cron
+          job.cron = this.params.dateOrCron;
+          job.when = next;
+        } else {
+          // XXX not a valid cron, so probably date
+          job.when = moment(this.params.dateOrCron).toDate();
+        }
         end(this.response, 200, _.extend(job, {
-          _id: Jobs.insert(job)
+          id: Jobs.insert(job)
         }));
       }
     }

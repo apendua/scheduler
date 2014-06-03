@@ -11,16 +11,17 @@ Template.listOfJobs.helpers({
     }, { sort: {
       when: -1
     }});
+  },
+  timeStamp: function () {
+    return moment(this.when || this.next).format("ddd, MMMM Do YYYY, h:mm:ss a");
   }
 });
 
 Template.listOfJobs.events({
   'click button': function () {
-    "use strict";
     Jobs.remove({_id: this._id});
   },
   'submit form': function (e, t) {
-    "use strict";
     e.preventDefault();
   }
 });
