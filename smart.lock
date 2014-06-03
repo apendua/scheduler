@@ -30,7 +30,7 @@
       "scheduler": {
         "git": "https://github.com/apendua/meteor-scheduler.git",
         "branch": "master",
-        "commit": "84262e87d95e150572529bd29527e83a9d30557d"
+        "commit": "5b224df0f9eaedbf98b1f95721a94332e79e8c5c"
       },
       "crater-modals": {
         "git": "https://github.com/subhog/meteor-crater-modals.git",

@@ -24,7 +24,9 @@ Server.tick = function (selector) {
         when : job.when,
       }));
       if (job) {
-        HTTP.post(job.url, function (err, res) {
+        HTTP.post(job.url, {
+          data: job.data
+        }, function (err, res) {
           if (job.cron) {
             Jobs.update(job._id, { $set: {
               when: later.schedule(later.parse.cron(job.cron)).next()

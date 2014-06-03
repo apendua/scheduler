@@ -12,3 +12,5 @@ Jobs.allow({
   remove: userIsAdmin,
   update: userIsAdmin
 });
+
+Scheduler.allow(userLoggedIn);

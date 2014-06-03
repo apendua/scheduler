@@ -118,6 +118,9 @@ Router.map(function () {
           url    : this.params.url,
           status : 'Active'
         };
+        if (this.request.body) {
+          job.data = this.request.body;
+        }
         if (next !== undefined) {
           // XXX this is probably a valid cron
           job.cron = this.params.dateOrCron;

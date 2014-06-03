@@ -4,8 +4,10 @@
     "devel": true,
     "nomen": true,
     "predef": [
+      "process",
       "EJSON",
       "Jobs",
+      "Staff",
       "Observable",
       "Scheduler",
       "Server",
@@ -14,6 +16,7 @@
       "Meteor",
       "Deps",
       "Router",
+      "Accounts",
       "Npm",
       "WebApp",
       "HTTP",

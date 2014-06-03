@@ -1,7 +1,8 @@
-Scheduler.job('test', function (res, req) {
+Scheduler.job('test', function (req, res) {
+  console.log(req.body);
   return "done";
 });
 
-Scheduler.job('tick', function (res, req) {
+Scheduler.job('tick', function (req, res) {
   Server.tick();
 });
