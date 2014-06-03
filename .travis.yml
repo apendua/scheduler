@@ -10,4 +10,4 @@ before_script:
   - cd tests && npm install
   - cd ..
 script:
-  - ./tests/node_modules/.bin/laika -u bdd ./tests/specs
+  - ./test
