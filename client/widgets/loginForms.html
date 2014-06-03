@@ -1,0 +1,55 @@
+<template name="signIn">
+  <form class="pure-form pure-form-aligned">
+    <div class="pure-control-group">
+      <label for="inputEmail">{{i18n 'Login as'}}</label>
+      <input name="user" type="text" id="inputEmail" placeholder="{{i18n 'Username or Email'}}">
+    </div>
+    <div class="pure-control-group">
+      <label for="inputPassword">{{i18n 'Password'}}</label>
+      <input name="password" type="password" id="inputPassword" placeholder="{{i18n 'Password'}}">
+    </div>
+    <div class="pure-controls">
+      <button type="submit" class="pure-button pure-button-primary">{{i18n 'Sign in'}}</button>
+    </div>
+  </form>
+</template>
+
+<template name="createAccount">
+  <form class="pure-form pure-form-aligned">
+    <div class="pure-control-group">
+      <label for="inputUsername">{{i18n 'Username'}}</label>
+      <input name="username" type="text" id="inputUsername" placeholder="{{i18n 'Username'}}">
+    </div>
+    <div class="pure-control-group">
+      <label for="inputEmail">{{i18n 'Email'}}</label>
+      <input name="email" type="email" id="inputEmail" placeholder="{{i18n 'Email'}}">
+    </div>
+    <div class="pure-control-group">
+      <label for="inputPassword">{{i18n 'Password'}}</label>
+      <input name="password" type="password" id="inputPassword" placeholder="{{i18n 'Password'}}">
+    </div>
+    <div class="pure-control-group">
+      <label for="inputRepeatPassword">{{i18n 'Repeat password'}}</label>
+      <input name="repassword" type="password" id="inputRepeatPassword" placeholder="{{i18n 'Password'}}">
+    </div>
+    <div class="pure-controls">
+      <button type="submit" class="pure-button pure-button-primary">{{i18n 'Create account'}}</button>
+    </div>
+  </form>
+</template>
+
+<template name="resetPassword">
+  <form class="pure-form pure-form-aligned">
+    <div class="pure-control-group">
+      <label for="inputUsername">{{i18n 'Username'}}</label>
+      <input name="username" type="text" id="inputUsername" placeholder="{{i18n 'Username'}}">
+    </div>
+    <div class="pure-control-group">
+      <label for="inputEmail">{{i18n 'Email'}}</label>
+      <input name="email" type="email" id="inputEmail" placeholder="{{i18n 'Email'}}">
+    </div>
+    <div class="pure-controls">
+      <button type="submit" class="pure-button pure-button-primary">{{i18n 'Reset password'}}</button>
+    </div>
+  </form>
+</template>

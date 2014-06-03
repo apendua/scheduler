@@ -8,7 +8,8 @@
       "scheduler": {
         "git": "https://github.com/apendua/meteor-scheduler.git",
         "branch": "master"
-      }
+      },
+      "crater-modals": {}
     },
     "packages": {
       "iron-router": {
@@ -30,6 +31,11 @@
         "git": "https://github.com/apendua/meteor-scheduler.git",
         "branch": "master",
         "commit": "84262e87d95e150572529bd29527e83a9d30557d"
+      },
+      "crater-modals": {
+        "git": "https://github.com/subhog/meteor-crater-modals.git",
+        "tag": "v0.0.4",
+        "commit": "9932a798662cb7b10f5f68ebb2183e79071eaa8e"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

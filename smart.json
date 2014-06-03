@@ -5,6 +5,7 @@
     "later": {},
     "scheduler": {
       "git": "https://github.com/apendua/meteor-scheduler.git"
-    }
+    },
+    "crater-modals": {}
   }
 }

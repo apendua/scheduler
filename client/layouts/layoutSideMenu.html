@@ -11,9 +11,16 @@
       <ul>
         {{#each routes}}
         <li class="{{onlyIfRouteEquals route 'pure-menu-selected'}}">
-          <a href="{{pathFor route}}">{{name}}</a>
+          <a href="{{pathFor route}}"><i class="{{icon}}"></i> {{name}}</a>
         </li>
         {{/each}}
+        <li class="">
+          {{#if currentUser}}
+            <a href="#signOut"><i class="fa fa-sign-out"></i> Sign Out</a>
+          {{else}}
+            <a href="#signIn"><i class="fa fa-sign-in"></i> Sign In</a>
+          {{/if}}
+        </li>
       </ul>
     </div>
   </div>
