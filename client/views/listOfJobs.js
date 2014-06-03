@@ -1,6 +1,6 @@
 
 Template.listOfJobs.rendered = function () {
-  $(this.find('[name=time]')).datetimepicker();
+  //$(this.find('[name=time]')).datetimepicker();
 };
 
 Template.listOfJobs.helpers({
