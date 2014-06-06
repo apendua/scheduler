@@ -16,7 +16,9 @@ Jobs.allow({
 });
 
 Staff.allow({
-  insert: userIsAdmin,
+  insert: function (userId, config) {
+    return userIsAdmin(userId) && config.email;
+  },
   remove: userIsAdmin,
   update: userIsAdmin
 });

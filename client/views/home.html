@@ -33,4 +33,33 @@
     </table>
   </div>
 
+  <div class="content">
+    <form class="pure-form add-job-form">
+      <fieldset>
+        <input type="email" name="email" placeholder="email">
+        <button type="submit" class="pure-button pure-button-primary">Add member</button>
+      </fieldset>
+    </form>
+
+    <table class="pure-table list-of-jobs">
+      <thead>
+        <tr>
+          <th>email</th>
+          <th>action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each staff}}
+          <tr>
+            <td>{{email}}</td>
+            <td>
+              <button class="" data-action="kickoff"><i class="fa fa-times"></i></button>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+  </div>
+
 </template>

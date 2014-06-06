@@ -9,6 +9,7 @@ Router.map(function () {
       return [
         Meteor.subscribe('apiKeys'),
         Meteor.subscribe('users'),
+        Meteor.subscribe('staffMembers'),
       ];
     }
   });

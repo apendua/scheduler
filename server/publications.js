@@ -32,3 +32,10 @@ Meteor.publish('apiKeys', function () {
 Meteor.publish('users', function () {
   return Meteor.users.find({}, { fields: { username: 1 }});
 });
+
+Meteor.publish('staffMembers', function () {
+  if (!this.userId) {
+    throw new Meteor.Error(403, "Access denied.");
+  }
+  return Staff.find({});
+});
