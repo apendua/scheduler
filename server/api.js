@@ -52,7 +52,7 @@ Router.map(function () {
           requireCredentials(this);
         } else {
           auth = (new Buffer(match[1], 'base64')).toString().split(':');
-          if (Meteor.users.find({ appKey: auth[0], appSecret: auth[1] }).count() == 0) {
+          if (Keys.find({ appKey: auth[0], appSecret: auth[1] }).count() == 0) {
             end(this, 403, 'Access denied.');
           } else {
             // TODO: we shouldn't be using "this"

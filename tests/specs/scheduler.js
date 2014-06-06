@@ -53,7 +53,7 @@ describe('Scheduler.', function () {
         }, function (err) {
           expect(err.toString()).to.contain('40'); // it may be either 401 or 403
         })
-        .always(done);        
+        .always(done);
     });
   });
 
@@ -71,9 +71,9 @@ describe('Scheduler.', function () {
             password : '123'
           });
           // generate credentials for this particular user
-          Meteor.users.update({ username: 'dude' }, { $set: {
+          Keys.insert({
             appKey: 'dudeKey', appSecret: 'dudeSecret'
-          }});
+          });
         })
       .switchTo(client)
         .login('dude', '123')

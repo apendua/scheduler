@@ -6,7 +6,7 @@
       "moment": {},
       "later": {},
       "scheduler": {
-        "git": "https://gtihub.com/apendua/meteor-scheduler",
+        "git": "https://github.com/apendua/meteor-scheduler",
         "branch": "master"
       },
       "crater-modals": {}
@@ -28,7 +28,7 @@
         "commit": "a9d41464760ab63f6eae65e97e79fd47cff72e3e"
       },
       "scheduler": {
-        "git": "https://gtihub.com/apendua/meteor-scheduler",
+        "git": "https://github.com/apendua/meteor-scheduler",
         "branch": "master",
         "commit": "8653cb6274a5e367a1097078b6c9473cb5eed5d4"
       },
