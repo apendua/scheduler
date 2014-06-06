@@ -25,4 +25,17 @@ Meteor.methods({
       _id: Keys.insert(credentials)
     });
   },
+
+  clearHistory: function() {
+    var user = Meteor.users.findOne({_id: this.userId});
+    if (!user && !user.admin) {
+      throw new Meteor.Error(403, 'Only admin can do that.');
+    }
+    Jobs.remove({
+      status: { $nin: [
+        Constants.events.state.ACTIVE,
+        Constants.events.state.PROCESSING,
+      ]}
+    });
+  }
 });

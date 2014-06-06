@@ -11,7 +11,7 @@ Template.history.helpers({
 });
 
 Template.history.events({
-  'click button': function () {
-    
+  'click [data-action="clear"]': function () {
+    Meteor.call('clearHistory');
   }
 });

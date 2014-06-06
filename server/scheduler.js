@@ -64,6 +64,12 @@ Server.tick = function (selector) {
 Meteor.startup(function () {
   "use strict";
 
+  Jobs.update({
+    status: Constants.events.state.PROCESSING
+  }, { $set: {
+    status: Constants.events.state.ACTIVE
+  }}, { multi: true });
+
   (function tick() {
     Server.tick();
     Meteor.setTimeout(tick,  Server.interval);
