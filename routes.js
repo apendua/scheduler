@@ -1,29 +1,6 @@
 Router.map(function () {
   "use strict";
   
-  // CLIENT ROUTES
-  this.route('home', {
-    path   : '/',
-    where  : 'client'
-  });
-  
-  this.route('listOfJobs', {
-    path   : '/listOfJobs',
-    where  : 'client',
-    waitOn : function () {
-      return Meteor.subscribe('activeJobs');
-    }
-  });
-
-  this.route('history', {
-    path   : '/history',
-    where  : 'client',
-    waitOn : function () {
-      return Meteor.subscribe('history');
-    }
-  });
-
-  
   // SERVER ROUTES
   function end(self, code, data) {
     if (_.isString(data)) {

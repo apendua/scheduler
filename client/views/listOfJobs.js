@@ -25,6 +25,11 @@ Template.listOfJobs.events({
     Jobs.remove({_id: this._id});
   },
   'submit form': function (e, t) {
+    var data;
     e.preventDefault();
+    data = $(e.target).formToJSON();
+    Jobs.insert(_.extend(Utils.parseEventTime(data.time), {
+      url: data.url
+    }));
   }
 });

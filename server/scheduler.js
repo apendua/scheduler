@@ -63,8 +63,6 @@ Server.tick = function (selector) {
 
 Meteor.startup(function () {
   "use strict";
-  
-  console.log(Jobs.find({}).fetch());
 
   (function tick() {
     Server.tick();
