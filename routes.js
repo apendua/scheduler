@@ -162,7 +162,7 @@ Router.map(function () {
           end(this, 200, _.extend(job, {
             id: Jobs.insert(job)
           }));
-          if (moment(job.when).diff() < Server.interval) {
+          if (moment(job.tick).diff() < Server.interval) {
             // XXX schedule this particular job
             Server.tick({ _id: job.id });
           }
@@ -179,7 +179,7 @@ Router.map(function () {
           end(this, 200, _.extend(job, {
             id: Jobs.insert(job)
           }));
-          if (moment(job.when).diff() < Server.interval) {
+          if (moment(job.tick).diff() < Server.interval) {
             // XXX schedule this particular job
             Server.tick({ _id: job.id });
           }
