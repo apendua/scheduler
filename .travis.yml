@@ -9,5 +9,7 @@ before_install:
 before_script:
   - cd tests && npm install
   - cd ..
+  - mrt install
+  - mrt --version
 script:
   - ./test
