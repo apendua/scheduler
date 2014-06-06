@@ -33,7 +33,7 @@ Server.tick = function (selector) {
             }});
           } else {
             Jobs.update(job._id, { $set: {
-              status: res.statusCode
+              status: res && res.statusCode || err && err.statusCode
             }});
           }
           if (err) {
