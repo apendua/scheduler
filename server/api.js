@@ -52,11 +52,11 @@ Router.map(function () {
           requireCredentials(this);
         } else {
           auth = (new Buffer(match[1], 'base64')).toString().split(':');
-          if (Keys.find({ appKey: auth[0], appSecret: auth[1] }).count() == 0) {
+          if (Keys.find({ apiKey: auth[0], apiSecret: auth[1] }).count() == 0) {
             end(this, 403, 'Access denied.');
           } else {
             // TODO: we shouldn't be using "this"
-            callback.apply(this);
+            callback.apply(this, arguments);
           }
         }
       }
@@ -82,17 +82,17 @@ Router.map(function () {
   this.route('listOfEvents', {
     path   : '/v1/events',
     where  : 'server',
-    action : function () {
+    action : authorize(function () {
       end(this, 200,
           _.pluck(Jobs.find({ status: 'Active' }, { fields: { _id: 1 }}).fetch(), '_id')
         );
-    }
+    })
   });
 
   this.route('eventDetails', {
     path   : '/v1/events/:id',
     where  : 'server',
-    action : function () {
+    action : authorize(function () {
       var job = null;
       if (this.request.method === 'POST') {
         badRequest(this);
@@ -112,13 +112,13 @@ Router.map(function () {
           }
         }
       }
-    }
+    })
   });
 
   this.route('addEvent', {
     path   : '/v1/events/when/:dateOrCron/:url',
     where  : 'server',
-    action : verifyMethod('POST', function () {
+    action : verifyMethod('POST', authorize(function () {
       var job = {
         url    : this.params.url,
         status : Constants.events.state.ACTIVE
@@ -126,7 +126,6 @@ Router.map(function () {
       if (this.request.body) {
         job.data = this.request.body;
       }
-      console.log(this.params.dateOrCron);
       if (Scheduler.isValidCron(this.params.dateOrCron)) {
         // XXX this is probably a valid cron
         job.tick = getNextTick(this.params.dateOrCron);
@@ -163,7 +162,7 @@ Router.map(function () {
         }
       }
 
-    })
+    }))
   });
   
 });

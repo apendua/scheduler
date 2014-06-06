@@ -72,7 +72,7 @@ describe('Scheduler.', function () {
           });
           // generate credentials for this particular user
           Keys.insert({
-            appKey: 'dudeKey', appSecret: 'dudeSecret'
+            apiKey: 'dudeKey', apiSecret: 'dudeSecret'
           });
         })
       .switchTo(client)
