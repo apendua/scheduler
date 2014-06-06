@@ -26,6 +26,9 @@ Router.map(function () {
   
   // SERVER ROUTES
   function end(self, code, data) {
+    if (_.isString(data)) {
+      data = { code : code, message : data };
+    }
     self.response.statusCode = code;
     self.response.setHeader("Content-Type", "application/json; character=utf-8");
     self.response.end(JSON.stringify(data));
@@ -73,7 +76,7 @@ Router.map(function () {
         } else {
           auth = (new Buffer(match[1], 'base64')).toString().split(':');
           if (Meteor.users.find({ appKey: auth[0], appSecret: auth[1] }).count() == 0) {
-            end(this, 403, { error: 403, message: 'Access denied.' });
+            end(this, 403, 'Access denied.');
           } else {
             // TODO: we shouldn't be using "this"
             callback.apply(this);
@@ -119,7 +122,7 @@ Router.map(function () {
       } else {
         job = Jobs.findOne(this.params.id);
         if (!job) {
-          end(this, 404);
+          end(this, 400, "Wrong cron format.");
         } else {
           if (this.request.method === 'GET') {
             // TODO: filter attributes
@@ -139,31 +142,50 @@ Router.map(function () {
     path   : '/v1/events/when/:dateOrCron/:url',
     where  : 'server',
     action : verifyMethod('POST', function () {
-      var next = getNextTick(this.params.dateOrCron);
       var job = {
         url    : this.params.url,
-        status : 'Active'
+        status : Constants.events.state.ACTIVE
       };
       if (this.request.body) {
         job.data = this.request.body;
       }
-      if (next !== undefined) {
+      console.log(this.params.dateOrCron);
+      if (Scheduler.isValidCron(this.params.dateOrCron)) {
         // XXX this is probably a valid cron
-        job.cron = this.params.dateOrCron;
-        job.when = next;
+        job.tick = getNextTick(this.params.dateOrCron);
+        if (!job.tick) { // XXX can we throw an error?
+          end(this, 400, "Invalid cron expression.");
+        } else {
+          job.next = job.tick;
+          job.cron = this.params.dateOrCron;
+          //--------------------------------
+          end(this, 200, _.extend(job, {
+            id: Jobs.insert(job)
+          }));
+          if (moment(job.when).diff() < Server.interval) {
+            // XXX schedule this particular job
+            Server.tick({ _id: job.id });
+          }
+        }
       } else {
-        // XXX not a valid cron, so probably date
-        job.when = moment(this.params.dateOrCron).toDate();
+        // XXX ideally we should specify some accepted date formats
+        job.tick = moment(this.params.dateOrCron);
+        if (!job.tick.isValid()) {
+          end(this, 400, "Invalid time format.");
+        } else {
+          job.tick = job.tick.toDate();
+          job.when = job.tick;
+          //----------------------------
+          end(this, 200, _.extend(job, {
+            id: Jobs.insert(job)
+          }));
+          if (moment(job.when).diff() < Server.interval) {
+            // XXX schedule this particular job
+            Server.tick({ _id: job.id });
+          }
+        }
       }
 
-      end(this, 200, _.extend(job, {
-        id: Jobs.insert(job)
-      }));
-
-      if (moment(job.when).diff() < Server.interval) {
-        // XXX schedule this particular job
-        Server.tick({ _id: job.id });
-      }
     })
   });
   

@@ -2,6 +2,8 @@ var expect = require('chai').expect;
 var promise = require('../helpers').promise;
 var throttle = require('../helpers').throttle;
 
+// TODO: add test to see if job is only triggered once
+
 describe('Scheduler.', function () {
   "use strict";
   

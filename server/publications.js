@@ -4,7 +4,10 @@ Meteor.publish('activeJobs', function () {
   if (!this.userId) {
     throw new Meteor.Error(403, "Access denied.");
   }
-  return Jobs.find({ status: 'Active' });
+  return Jobs.find({ status: { $in: [
+    Constants.events.state.ACTIVE,
+    Constants.events.state.PROCESSING
+  ] } });
 });
 
 Meteor.publish('history', function () {
@@ -12,5 +15,8 @@ Meteor.publish('history', function () {
   if (!this.userId) {
     throw new Meteor.Error(403, "Access denied.");
   }
-  return Jobs.find({ status: { $ne: 'Active' }});
+  return Jobs.find({ status: { $nin: [
+    Constants.events.state.ACTIVE,
+    Constants.events.state.PROCESSING
+  ] } });
 });

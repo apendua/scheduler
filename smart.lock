@@ -5,7 +5,10 @@
       "iron-router": {},
       "moment": {},
       "later": {},
-      "scheduler": {},
+      "scheduler": {
+        "git": "https://gtihub.com/apendua/meteor-scheduler",
+        "branch": "master"
+      },
       "crater-modals": {}
     },
     "packages": {
@@ -25,9 +28,9 @@
         "commit": "a9d41464760ab63f6eae65e97e79fd47cff72e3e"
       },
       "scheduler": {
-        "git": "https://github.com/apendua/meteor-scheduler.git",
-        "tag": "v0.0.2",
-        "commit": "1acaa105bfbafc03394cc16a525c68ea739ad9c1"
+        "git": "https://gtihub.com/apendua/meteor-scheduler",
+        "branch": "master",
+        "commit": "8653cb6274a5e367a1097078b6c9473cb5eed5d4"
       },
       "crater-modals": {
         "git": "https://github.com/subhog/meteor-crater-modals.git",

@@ -7,7 +7,10 @@ Template.listOfJobs.helpers({
   jobs: function () {
     "use strict";
     return Jobs.find({
-      status: 'Active'
+      status: { $in: [
+        Constants.events.state.ACTIVE,
+        Constants.events.state.PROCESSING
+      ]}
     }, { sort: {
       when: 1
     }});

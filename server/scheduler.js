@@ -13,23 +13,32 @@ Server.tick = function (selector) {
 
   selector = selector || {};
   _.extend(selector, {
-    when   : { $lt: limit },
-    status : 'Active'
+    tick   : { $lt: limit },
+    status : Constants.events.state.ACTIVE
   });
   
   Jobs.find(selector).forEach(function (job) {
+    Jobs.update(job._id, { $set: {
+      status: Constants.events.state.PROCESSING
+    }});
     Meteor.setTimeout(function () {
-      job = Jobs.findOne(_.extend(selector, {
-        _id  : job._id,
-        when : job.when,
-      }));
+      var nextTick;
+      //------------------
+      job = Jobs.findOne({
+        _id    : job._id,
+        tick   : job.tick,
+        status : Constants.events.state.PROCESSING
+      });
       if (job) {
         HTTP.post(job.url, {
           data: job.data
         }, function (err, res) {
           if (job.cron) {
+            nextTick = later.schedule(later.parse.cron(job.cron)).next();
             Jobs.update(job._id, { $set: {
-              when: later.schedule(later.parse.cron(job.cron)).next()
+              status : Constants.events.state.ACTIVE,
+              next   : nextTick,
+              tick   : nextTick
             }});
           } else {
             Jobs.update(job._id, { $set: {
@@ -42,7 +51,7 @@ Server.tick = function (selector) {
           }
         });
       }
-    }, moment(job.when).valueOf() - moment().valueOf());
+    }, moment(job.tick).valueOf() - moment().valueOf());
   });  
   
 };
