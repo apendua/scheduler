@@ -1,0 +1,16 @@
+.crater-alert-box {
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 16px -4px black;
+}
+
+.crater-alert-box h1,
+.crater-alert-box h2,
+.crater-alert-box h3 {
+  padding: 0;
+  margin: 0;
+}
+
+.crater-alert-box a {
+  text-decoration: none;
+}
