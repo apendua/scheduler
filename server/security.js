@@ -8,9 +8,9 @@ var userIsAdmin = function (userId) {
 }
 
 Jobs.allow({
-  insert: userIsAdmin,
-  remove: userIsAdmin,
-  update: userIsAdmin
+  insert: userLoggedIn,
+  remove: userLoggedIn,
+  update: userLoggedIn
 });
 
 Scheduler.allow(userLoggedIn);

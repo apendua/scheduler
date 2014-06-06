@@ -3,9 +3,7 @@
     "iron-router": {},
     "moment": {},
     "later": {},
-    "scheduler": {
-      "git": "https://github.com/apendua/meteor-scheduler.git"
-    },
+    "scheduler": {},
     "crater-modals": {}
   }
 }

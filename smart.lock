@@ -5,10 +5,7 @@
       "iron-router": {},
       "moment": {},
       "later": {},
-      "scheduler": {
-        "git": "https://github.com/apendua/meteor-scheduler.git",
-        "branch": "master"
-      },
+      "scheduler": {},
       "crater-modals": {}
     },
     "packages": {
@@ -29,13 +26,13 @@
       },
       "scheduler": {
         "git": "https://github.com/apendua/meteor-scheduler.git",
-        "branch": "master",
-        "commit": "5b224df0f9eaedbf98b1f95721a94332e79e8c5c"
+        "tag": "v0.0.1",
+        "commit": "d0e468207a27948e97938fbb4083eaa3cb7ebda7"
       },
       "crater-modals": {
         "git": "https://github.com/subhog/meteor-crater-modals.git",
-        "tag": "v0.0.4",
-        "commit": "9932a798662cb7b10f5f68ebb2183e79071eaa8e"
+        "tag": "v0.0.5",
+        "commit": "95c9bf009b44d1aa190243bd5b254c8dc6f42951"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
