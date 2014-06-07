@@ -111,6 +111,8 @@ Router.map(function () {
         } else {
           if (this.request.method === 'GET') {
             // TODO: filter attributes
+            job.id = job._id;
+            delete job._id;
             end(this, 200, job);
           } else if (this.request.method === 'PUT') {
             // TODO: finish this one
