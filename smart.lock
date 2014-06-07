@@ -26,8 +26,8 @@
       },
       "scheduler": {
         "git": "https://github.com/apendua/meteor-scheduler.git",
-        "tag": "v0.0.6",
-        "commit": "c9bea8bc7be8af53eb9215072b2995e18eeba4db"
+        "tag": "v0.0.7",
+        "commit": "07cd8e72146b1f4d79cd0dd2dc4ea6fa9de7c54c"
       },
       "crater-modals": {
         "git": "https://github.com/subhog/meteor-crater-modals.git",
