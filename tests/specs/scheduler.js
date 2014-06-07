@@ -16,8 +16,8 @@ describe('Scheduler.', function () {
   before(function (done) {
     promise(server)
       .eval(function () {
-        Scheduler.job('testJob', function () {
-          emit('testJob');
+        Scheduler.job('testJob', function (data) {
+          emit('testJob', data.value);
         });
       })
       .always(done);
@@ -134,7 +134,7 @@ describe('Scheduler.', function () {
           .always(done);
       });
       
-      it('should be able to trigger an existing job.', function (done) {
+      it('should be able to trigger an existing job with arguments.', function (done) {
         // TODO: test the time difference
         // TODO: this should be tested on client
 
@@ -142,10 +142,11 @@ describe('Scheduler.', function () {
 
         promise(client)
           .eval(function () {
-            Scheduler.addEvent('testJob', moment().add('seconds', 3).toISOString());
+            Scheduler.addEvent('testJob', moment().add('seconds', 3).toISOString(), { value: 12345 });
           })
         .switchTo(server)
-          .once('testJob', function () {
+          .once('testJob', function (value) {
+            expect(value).to.eql(12345);
             return Date.now() - timestamp;
           })
           .then(function (value) {
