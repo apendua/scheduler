@@ -93,13 +93,21 @@ Router.map(function () {
     path   : '/v1/events/:id',
     where  : 'server',
     action : authorize(function () {
-      var job = null;
+      var job      = null;
+      var selector = {
+        _id: this.params.id,
+        status: { $in : [
+            Constants.events.state.ACTIVE,
+            Constants.events.state.PROCESSING
+          ]
+        }
+      };
       if (this.request.method === 'POST') {
         badRequest(this);
       } else {
-        job = Jobs.findOne(this.params.id);
+        job = Jobs.findOne(selector);
         if (!job) {
-          end(this, 400, "Wrong cron format.");
+          end(this, 404, "Event does not exist.");
         } else {
           if (this.request.method === 'GET') {
             // TODO: filter attributes
@@ -164,5 +172,5 @@ Router.map(function () {
 
     }))
   });
-  
+
 });
